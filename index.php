@@ -7,6 +7,7 @@
 		<h2> Pozdro! </h2>
 		<h1>
 		 Sharing is caring. -- NOPE
+		 jak to nie? 
 		</h1>
 	<body/>
 </html>
