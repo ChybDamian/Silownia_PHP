@@ -7,6 +7,8 @@
 	<body>
 		<h3>strona testowa</h3>
 		<?php
+			//inicjalizacja zmiennej -- nie trzeba podawać typu
+			
 			echo 'echo <br/>';
 			$definicjaZmiennej = "nieTrzebaPodawaćTypu";
 			echo $definicjaZmiennej;
@@ -14,14 +16,24 @@
 			echo '<br/>';
 			echo $definicjaZmiennej;
 			echo '<br/>';
-			echo "konkatenacja string'ow: " . $definicjaZmiennej; // concatenacja string
+			echo "konkatenacja string'ow: " . $definicjaZmiennej; // dodawanie stringów 
+
 			
 			
-			// GLOBAL SCOPE
+			/* 
+			 * Scopes ( zasięg dostępu zmiennych )
+			 * 
+			 * 1.Zwykłe zmienne deklarowane w funkcjach nie są dostępne poza nimi
+			 * 2.Zmienne deklarowane w poza funkcjami są dostępne w funkcjach za pomocą słowa global
+			 * 3.
+			 * 
+			*/
+			
 			$globalVar = 4;
 			
 			function testGlobalScope(){
-				global $globalVar; // 
+				// echo $globalVar; -- spowoduje błąd
+				global $globalVar; // Pozwala uzyskać dostęp do zmiennych zdefiniowanych poza funkcją (zmienne globalne)
 				echo '<br/>';
 				echo $globalVar;
 				echo '<br/>';
