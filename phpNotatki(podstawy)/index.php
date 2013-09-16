@@ -176,7 +176,7 @@
 			
 			// ARRAY's
 			
-
+			$oceny = array( 'piotr' => 3, 'magda' => 4, 'adam' => 2, 'syriusz' =>6 );
 			
 			echo 'oceny: <br/>';
 			asort( $oceny ); // sortowanie względem wartości (od najmniejszej, zachowuje klucze );
@@ -191,6 +191,105 @@
 			czytelnyObjectArray( $oceny );
 			arsort( $oceny ); // sortowanie względem wartości ( od największej, nie zachowuje kluczy )
 			czytelnyObjectArray( $oceny );			
+			
+			
+			// REFERENCJA -- przypisanie adresu komórki zamiast kopiowania wartości
+			$x = 2;
+			$y =& $x;
+			
+			//PRZYKLAD UZYCIA REFERENCJI</br></br>
+			
+			
+			function &duzyArray( $dolnyPrzedzial, $gornyPrzedzial ){  // funkcja zwraca referencje 
+				$arr = array();
+				
+				for( ; $dolnyPrzedzial<=$gornyPrzedzial; $dolnyPrzedzial++ ){
+					array_push( $arr, $dolnyPrzedzial ); // dodawanie elementów do array, można podać kilka elementów
+														 // array_push( $arr, $x1, $x2 );
+				}
+				
+				return $arr;
+			};	
+			
+			$listaLiczb =& duzyArray( 10,100 );  
+			// Dzięki referencji ten 90-cio elementowy array nie jest kopiowany do kolejnej zmiennej
+			// zamiast tego do $listaLiczb zostaje przekazany adres do miejsca w którym już aktualnie znajduje się $arr z funkcji duzyArray
+			
+			
+			
+			
+			// Ta funkcja da sobie radę z nieograniczoną ilością argumentów
+			function pomnóżWszystkie( $x, $domyślna = 1 ){  // wartość domyślna
+				$iloscArgumentówFunkcji = func_num_args();
+				$arrayZeWszystkimiArgumentami = func_get_args();
+				$wartoscWybranegoArgumentu = func_get_arg(0); //uzyskuje dostęp do argumentu funkcji o podanym index'ie
+				
+				//Dzięki tym funkcją można sprawić by funkcja działała z nieokreśloną liczbą argumentów np:
+				$wynik = 0;
+				
+				for( $i = 0; $i<$iloscArgumentówFunkcji; $i++ ){
+					$wynik += func_get_arg($i);
+				}
+				
+				return $wynik;
+			};
+			
+			$duzaLiczba = pomnóżWszystkie( 2,3,5,6,7,1,6,5,45,6,78 ); // 
+			echo 'pomnóżWszystkie( 2,3,5,6,7,1,6,5,45,6,78 ) = ' . $duzaLiczba;
+			
+			
+			// W PHP  MOŻNA INCREMENTOWAĆ CIĄGI ZNAKÓW
+			echo "</br></br>INCREMENTACJA ZNAKOW:</br> ";
+			$zn = "aa";
+			$zn++;
+			echo "\"aa\"++= $zn</br>";
+			
+			$zn = "az";
+			$zn++;
+			echo "\"az\"++= $zn</br>";
+			$zn = "B9";
+			$zn++;
+			echo "\"B9\"++= $zn</br>";
+			
+			echo '<br/><br/>';
+			
+			
+			######################################
+			// nie ma { }, (forma if używana w python'ie)
+			
+			$user_validated = false;
+			
+			if ($user_validated):
+				//..
+			else:
+				//..
+			endif;
+	
+			#######################################
+			
+			include "div.html"; //pozwala dołączać html w osobnych plikach -- (Można w ten sposób dołączać elementy występujące na wszystkich podstronach)
+			require "required.html";	
+			@include "nieistniejącyPlik.html";  // @ - tłumienie błędów, nie wyskoczył błąd pomimo że element nie istnieje
+			
+			//  include_once && require_once  - pozwala używać tych operacji w pętli, pliki zostaną dodane tylko raz 
+			
+			
+			// funkcja zwracająca wiele wartości na raz
+			
+			function returnMultiple(){
+				return array(32,453,325,"sdfs");
+			}	
+		
+		$x = returnMultiple();
+		// echo $x[1]; /453;
+		
+		
+		// exit; a.k.a die; - zatrzymuje wykonywanie skryptu;
+		// die("message") - message zostenie wyświetlony przed zakończeniem wykonywania
+		
+		
+		die("<br/>die(); - KONIEC"); // exit("wiadomość") -- działa tak samo
+		echo "<br/>To nie zostanie wydrukowane ponieważ skrypt został zakończony za pomocą die();"; 
 		?>
 		
 	</body>

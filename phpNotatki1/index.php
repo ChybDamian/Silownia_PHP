@@ -1,233 +1,125 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html" charset="utf-8"/>
-		<title>php podstawy 1</title>
+		<title>phpPodstawy2</title>
+		<meta http-equiv="content-type" content="text/html"; charset="utf-8"/>
 	</head>
 	<body>
-		<?php // można też użyć <script language="php"> ... </script>
-				
+		<?php
 		
-			// Różnica pomiędzy " " i ' ';
-			// " " - zmienne są wyświetlane, / jest znakiem specjalnym
-			// ' ' - trakruje zawartosc jak zwykły tekst 
+			// Float liczby są często tylko przybliżeniem właściwej liczby (ostro porąbane)
 			
-			$x = 2;
-			echo "STRING <br/><br/>";
-			echo "Hello $x world! <br/>";
-			echo 'Hello $x world! <br/>';
+			echo "Float liczby są często tylko przybliżeniem właściwej liczby. " . "</br></br>";
 			
-			// Array'e pozwalają na klucze w postaci stringów, można je mieszać zwykłymi kluczami liczbowymi
+			$f1 = 0.1;
+			$f2 = 0.7;
+			echo floor(($f1 + $f2)*10) . "</br>"; // return 7 mimo że powinno być 8
 			
-			$arr = array( "kot", "pies", "wiewiorka",
-						  "samochod" => "audi",
-						  "motor" => "honda");
+			// ISSET
+						
+			echo "</br> ISSET"  . "</br></br>"; // sprawdza czy zmiennej została nadana wartość
+			$x1;
+			echo  isset($x1) ? "Wartość nadana" : "wartość nie nadana";
+			echo  "</br>";
+						
+			$x1 = 2;
+			echo  isset($x1) ? "Wartość nadana" : "wartość nie nadana";
+			echo  "</br>";
 			
-			echo "<br/> ARRAY <br/><br/>";			  
-			echo $arr[0] . " " . $arr["motor"] . "<br/>";
+			// SCOPES PROTECTED I PRIVATE
 			
-			// Iteracja array
+			echo "</br>SCOPES PROTECTED I PRIVATE" . "</br></br>";
 			
-			echo "<br/>ITERACJE <br/><br/>  ";
-			
-			foreach( $arr as $value ){
-				echo "xxx : {$value} <br/>";   // co robi { }
-			}
-			
-			echo "<br/>ITERACJE <br/><br/> ";
-			
-			foreach( $arr as $key => $value ){
-				echo "key: $key, value: $value <br/>";
-			}
-			
-			// Konstrukcja klasy
-			
-			echo "<br/>KONSTRUKCJA KLASY<br/><br/>";
-			
-			class Person{
-				public $name = '';
-				
-				public function name( $newname = NULL ){  // wartość domyślna
-					if( !is_null($newname) ){ 
-						$this->name = $newname;					
-					}
-					
-					return $this->name;
-				}					
+			class Dom{
+				public $drzwi = "drzwi"; // dostępne wszędzie
+				public $okno = "okno";
+				private $tv = "tv"; // dostępne tylko w tej classie
+				protected $zamekOdDrzwi = "zamekOdDrzwi"; // dostępne w tej classie i w clasach które z niej dziedziczą
 				
 			}
 			
-			$damian = new Person;
-			echo "Masz na imie " . $damian->name("Damian") . "</br>";
-			echo "Masz na imie $damian->name</br>";
-			
-			//referencja 
-			
-			$x = 2;
-			$y =& $x;
-			
-			// by uniknąć kopiowania dużej ilości pamięci
-			
-			echo "</br>PRZYKLAD UZYCIA REFERENCJI</br></br>";
-			
-			function &duzyArray( $dolnyPrzedzial, $gornyPrzedzial ){  // funkcja zwraca referencje
-				$arr = array();
-				
-				for( ; $dolnyPrzedzial<=$gornyPrzedzial; $dolnyPrzedzial++ ){
-					array_push( $arr, $dolnyPrzedzial ); // dodawanie elementów do array, można podać kilka elementów
-														 // array_push( $arr, $x1, $x2 );
+			class Dom2 extends Dom {
+				public function drukuj(){
+					echo "extended class drukuje: ". "</br>";;
+					echo "public: " . $this->drzwi . "</br>";
+					echo "public: " . $this->okno . "</br>";
+					echo "private: " . @$this->tv . "</br>"; // nie działa
+					echo "protected: " . $this->zamekOdDrzwi . "</br>";
 				}
 				
-				return $arr;
-			};
-			
-			$listaLiczb =& duzyArray( 10,106 );  // dzięki referencji array nie jest kopiowany do kolejnej zmiennej			
-			
-			
-			foreach( $listaLiczb as $value ){
-				static $i = 0;	
-				echo $value . ", ";
-				$i++;
-				if( !($i%10) ) echo "</br>";
 			}
 			
-			function doubler( &$x, $ileRazy = 1 ){  // wartość domyślna
-				return $x << $ileRazy;
-				$iloscArgumentówFunkcji = fun_num_args();
-				$arrayZeWszystkimiArgumentami = fun_get_args();
-				$wartoscWybranegoArgumentu = fun_get_arg(0); // index
-				
-			};
+			$object = new Dom2;
+			$object->drukuj();
 			
-			$x = 1;
-			doubler($x);
-			echo "</br></br>Argument jako referencja:  $x</br></br>";	
-			
-			
-			//SCOPE, ZASIĘG ZMIENNYCH
-			
-				//global
-			function updateLicznik(){
-				global $licznik;
-				//GLOBALS[licznik]  <- inny sposób
-				$licznik++;
-			}
-			
-			echo "</br></br>Global scope: ";
-			$licznik = 10;
-			updateLicznik();
-			echo $licznik . "</br>";
-			
-			
-				//static			
-			echo "STATIC scope: ";
-							
-			function iloscKlikniec(){
-				static $i = 0;  //zapamiętuje wartość zmiennej dla tej funkcji 
-				$i++;
-				echo $i .", ";									
-			}
-			
-			iloscKlikniec();
-			iloscKlikniec();
-			
-			// INCREMENTACJA STRING
-			echo "</br></br>INCREMENTACJA ZNAKOW:</br> ";
-			$zn = "az";
-			$zn++;
-			echo "\"az\"++= $zn</br>";
-			$zn = "B9";
-			$zn++;
-			echo "\"B9\"++= $zn</br>";
-			
-			
-			
-			
-		######################################
-		######################################
-		// nie ma { }, forma if z pythona	
-			
-			$user_validated = false;
-			
-			if ($user_validated):
-				echo "Welcome!";
-				$greeted = 1;
-			else:
-				echo "Access Forbidden!</br></br>";
-				//exit;
-			endif;
-				
-		####################################
-		####################################
-			
-			echo "ZASTOSOWANIE TICKS & DECLARE</br></br>";
-			
-			function wiadomosc(){
-				echo "</br></br>Tick zostal uruchomiony</br></br>";
-			}
-			
-			
-			register_tick_function("wiadomosc");
-			declare(ticks=50){
-				foreach( $listaLiczb as $value ){
-					echo $value . ", ";
+			// RZUTOWANIE OBIEKTU NA ARRAY I NA ODWRÓT
+
+			echo "</br>RZUTOWANIE OBIEKTU NA ARRAY I NA ODWRÓT" . "</br></br>";			
+						
+			class Car{
+				public $wheels = 4;
+				public $doors = 2;
+				public function openDoor(){
+					echo "door opened" . "</br>";
 					
 				}
 			}
 			
-		
-		include "div.html";
-		require "required.html";
-		
-		@include "nieistniejącyPlik.html";   // @ - tłumienie błędów, nie wyskoczył błąd pomimo że element nie istnieje
-		
-		//  include_once && require_once  - pozwala używać tych operacji w pętli, pliki zostaną dodane tylko raz 
-		
-		######################################
-		//funkcja przyjmująca argumenty które są classą, array'em, albo funkcją
-		
-		class Dog{
-			public $lapy;
-			public $glowa = 1;
+			$bmw = new Car;
+			$bmwArray = (array) $bmw;
+			// w wyniku rzutowania object na array tylko properties są przypisywane do array'a
+			echo "object to array: ";
+			print_r($bmwArray);
+			echo "</br>";
 			
-		};
-		
-		function dogs( Dog $x ){  // radziała tylko jeżeli argument(reksio) jest typu Dog
-			$x-> lapy = 4;
-		};
-		
-		$reksio = new Dog;
-		
-		dogs( $reksio );			
-		
-		echo "</br></br> reksio ma: $reksio->lapy  łapy</br></br>";
+			$bmwArrayToObject = (object) $bmwArray;
+			echo "array to object: ";
+			echo $bmwArrayToObject->doors;
 		
 		
-		######################################
-		//Funkcja zwracająca wiele wartości
-		
-		function returnMultiple(){
-			return array(32,453,325,"sdfs");
-			}	
-		
-		
-		
-		#######################################
-		
-		// exit; a.k die; - zatrzymuje wykonywanie skryptu;
-		// die("message") - message zostenie wyświetlony przed zakończeniem wykonywania
-		
-			die("</br>die(); - KONIEC");
-			
-			echo "</br>To nie zostanie wydrukowane";
-			
-		
-		// strona 73
-										
+		#########################################	
 		?>
+		
+		<?php 
+			$validated = true;
+			if($validated): //
+		?>
+			<h2> Walidacja zakończona sukcesem </h2>
+		<?php else: // ?>
+			<h2> Odmowa dostępu </h2>
+		<?php endif // ?>
+		
+		<?php
+		##########################################
+			
+			echo 'nawiasy w echo: ' . ($x1 ? 2 : 1) . "</br>";
+			echo "nawiasy w echo: " . $x1 ? 2 : 1 . "</br>";  // gdy pominie się nawiasy wydrukowany zostanie tylko wynik if
+			
+			
+			##########
+			## echo ' ' -- zwykły tekst bez nadawania wartości zmiennym ( jedyny znak ucieczki to \' )
+			## echo " " -- tekst w którym zmiennym są nadawane wartości,  ( \n, \t, \{, \}, \"  itp... )
+			## 
+			
+			echo "</br></br></br>";
+			
+$duzyTekst = <<< identyfikator
+	to jest tekst napisany
+	w wielu liniach za pomoca heredoc
+identyfikator;
+
+echo $duzyTekst;
+
+	// w linii w której znajduje się identyfikator zakończenia heredoc nie może znajdować się nic innego, nawet komentarz
+	// identyfikator musi być dokładnie taki sam, nie mogą znajdować się tam dodatkowe spacje 
 
 		
-
+	
+	     
+			
+		
+		
+		?>
 		
 	</body>
 </html>
