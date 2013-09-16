@@ -43,7 +43,7 @@
 					echo "extended class drukuje: ". "</br>";;
 					echo "public: " . $this->drzwi . "</br>";
 					echo "public: " . $this->okno . "</br>";
-					echo "private: " . @$this->tv . "</br>"; // nie działa
+					echo "private: " . @$this->tv . "</br>"; // nie zadziała ponieważ $tv jest private zmienną;
 					echo "protected: " . $this->zamekOdDrzwi . "</br>";
 				}
 				
@@ -52,35 +52,16 @@
 			$object = new Dom2;
 			$object->drukuj();
 			
-			// RZUTOWANIE OBIEKTU NA ARRAY I NA ODWRÓT
-
-			echo "</br>RZUTOWANIE OBIEKTU NA ARRAY I NA ODWRÓT" . "</br></br>";			
-						
-			class Car{
-				public $wheels = 4;
-				public $doors = 2;
-				public function openDoor(){
-					echo "door opened" . "</br>";
-					
-				}
-			}
-			
-			$bmw = new Car;
-			$bmwArray = (array) $bmw;
-			// w wyniku rzutowania object na array tylko properties są przypisywane do array'a
-			echo "object to array: ";
-			print_r($bmwArray);
-			echo "</br>";
-			
-			$bmwArrayToObject = (object) $bmwArray;
-			echo "array to object: ";
-			echo $bmwArrayToObject->doors;
-		
-		
-		#########################################	
 		?>
 		
+		
+			
 		<?php 
+			/*
+				Skrypty php można rozkładać na wiele znaczników <?php ?>
+			*/
+			
+		
 			$validated = true;
 			if($validated): //
 		?>
@@ -90,36 +71,32 @@
 		<?php endif // ?>
 		
 		<?php
+		
 		##########################################
 			
-			echo 'nawiasy w echo: ' . ($x1 ? 2 : 1) . "</br>";
-			echo "nawiasy w echo: " . $x1 ? 2 : 1 . "</br>";  // gdy pominie się nawiasy wydrukowany zostanie tylko wynik if
+			echo 'nawiasy w echo: ' . ($x1 ? 2 : 1) . '</br>'; // nawias pozwala wydrukować skomplikowane stwierdzenie w echo
+			echo 'nawiasy w echo: ' . $x1 ? 2 : 1 . '</br>';  // gdy pominie się nawiasy wydrukowany zostanie tylko wynik if
 			
 			
 			##########
 			## echo ' ' -- zwykły tekst bez nadawania wartości zmiennym ( jedyny znak ucieczki to \' )
 			## echo " " -- tekst w którym zmiennym są nadawane wartości,  ( \n, \t, \{, \}, \"  itp... )
-			## 
 			
 			echo "</br></br></br>";
 			
-$duzyTekst = <<< identyfikator
-	to jest tekst napisany
-	w wielu liniach za pomoca heredoc
+
+// Identyfikator służy jako znak początku i końca
+// Na końcu poniższej lini nie może się znaleźć nawet komentarz, nie ma tam też;
+// Identyfikator kończący musi zostać napisany idealanie tak samo jak pierwszy( wliczając białe znaki -- spacje przed i po wywołają błąd )
+			$duzyTekst = <<< identyfikator
+				Ten tekst jest napisany
+				w wielu
+				linijkach w formacie heredoc
 identyfikator;
+// Nie można wstawić tab ani spacji
 
-echo $duzyTekst;
+			echo $duzyTekst;
 
-	// w linii w której znajduje się identyfikator zakończenia heredoc nie może znajdować się nic innego, nawet komentarz
-	// identyfikator musi być dokładnie taki sam, nie mogą znajdować się tam dodatkowe spacje 
-
-		
-	
-	     
-			
-		
-		
-		?>
-		
+		?>		
 	</body>
 </html>
