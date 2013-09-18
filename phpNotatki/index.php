@@ -270,6 +270,8 @@
 			include "div.html"; //pozwala dołączać html w osobnych plikach -- (Można w ten sposób dołączać elementy występujące na wszystkich podstronach)
 			require "required.html";	
 			@include "nieistniejącyPlik.html";  // @ - tłumienie błędów, nie wyskoczył błąd pomimo że element nie istnieje
+			require "informacje.php";
+			echo '$użytkownicyOnline = ' . $użytkownicyOnline; // zmienna dołączona w pliku zmienne.php
 			
 			//  include_once && require_once  - pozwala używać tych operacji w pętli, pliki zostaną dodane tylko raz 
 			
