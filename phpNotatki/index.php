@@ -5,10 +5,8 @@
 		<meta charset="utf-8" />
 	</head>
 	<body>
-		<h3>strona testowa</h3>
 		<?php
 			//inicjalizacja zmiennej -- nie trzeba podawać typu
-			
 			$definicjaZmiennej = "nieTrzebaPodawaćTypu";
 			echo $definicjaZmiennej;
 			echo '<br/>';
@@ -68,7 +66,7 @@
 			echo '<br/>';
 			
 			
-			echo 'count($arrayTest): ' . count($arrayTest) . '<br/>'; // zwraca ilosc elementów array'a
+			echo 'count($arrayTest): ' . count($arrayTest) . '<br/>'; // count() zwraca ilosc elementów array'a
 			
 			
 			/*
@@ -85,14 +83,12 @@
 			echo '<br/><br/>';
 			echo 'ITERACJA TABLICY: <br/>';
 			foreach ($arrayTextZamiastLiczb as $key => $value) { // $key -- wartość do której jest przypisany element Tablicy
-																 // $value -- wartość elementu tablicy								
-																 		 
+																 // $value -- wartość elementu tablicy																			 		 
 				echo 'Klucz: ' . $key . ' => Wartość: ' . $value . '<br/>';
 			}
 			
-			
-			/* można też używać :
-		     *  foreach($array os $value )  -- jeśli nie potrzebujemy klucza
+			/* można też używać:
+		     *  foreach($array as $value )  -- można uzyskać dostęp do 
 			 *  foreach($arry as $key) -- jeśli nie porzebujemy wartości
 			 */ 
 			 			
@@ -101,7 +97,7 @@
 			function czytelnyObjectArray( $x = array(1,2,3) ){ // domyślna wartość argumentu -- jeżeli funkcja zostanie wywołana bez argumentów 
 				echo '<pre>';									// to $x będzie miał wartość array(1,2,3)
 				print_r( $x ); // funkcja drukująca ciurkiem zawartość tablic i obiektów -- <pre></pre> sprawia że jest drukowany
-				echo '<pre>'; 
+				echo '</pre>'; 
 			}
 			
 			echo '<br/>';
@@ -124,9 +120,7 @@
 				
 				function method(){
 					echo $this->kolor . ' ' . $this->okna;
-				}
-			}
-			
+				}			
 			$duzyDom = new Dom("zielony", 10); 
 			
 			// STRING FUNCTION
@@ -282,16 +276,67 @@
 				return array(32,453,325,"sdfs");
 			}	
 		
-		$x = returnMultiple();
-		// echo $x[1]; /453;
+			$x = returnMultiple();
+			// echo $x[1]; /453;
+			
+			
+			
+			// Float liczby są często tylko przybliżeniem właściwej liczby (ostro porąbane)
+			
+			echo "Float liczby są często tylko przybliżeniem właściwej liczby. " . "</br></br>";
+			
+			$f1 = 0.1;
+			$f2 = 0.7;
+			echo floor(($f1 + $f2)*10) . "</br>"; // return 7 mimo że powinno być 8
+			
+			// ISSET -- sprawdza czy zmiennej została nadana wartość
+						
+			echo "</br> ISSET"  . "</br></br>"; // 
+			$x1;
+			echo  isset($x1) ? "Wartość nadana" : "wartość nie nadana";
+			echo  "</br>";
+						
+			$x1 = 2;
+			echo  isset($x1) ? "Wartość nadana" : "wartość nie nadana";
+			echo  "</br>";
 		
 		
-		// exit; a.k.a die; - zatrzymuje wykonywanie skryptu;
-		// die("message") - message zostenie wyświetlony przed zakończeniem wykonywania
-		
-		
-		die("<br/>die(); - KONIEC"); // exit("wiadomość") -- działa tak samo
-		echo "<br/>To nie zostanie wydrukowane ponieważ skrypt został zakończony za pomocą die();"; 
+			echo 'nawiasy w echo: . ($x1 ? 2 : 1) = ' . ($x1 ? 2 : 1) . '</br>'; // nawias pozwala wydrukować skomplikowane stwierdzenie w echo
+			echo 'nawiasy w echo: . $x1 ? 2 : 1 ' . $x1 ? 2 : 1 . '</br>';  // gdy pominie się nawiasy wydrukowany zostanie tylko wynik if ( bez tekstu w cudzysłowiach )
+			
+			
+			// SCOPES PROTECTED I PRIVATE -- PROGRAMOWANIE OBIEKTOWE(jak nie ogarniasz to nie czytaj)
+			
+			echo "</br>SCOPES PROTECTED I PRIVATE" . "</br></br>";
+			
+			class Dom{
+				public $drzwi = "drzwi"; // dostępne wszędzie
+				public $okno = "okno";
+				private $tv = "tv"; // dostępne tylko w tej classie
+				protected $zamekOdDrzwi = "zamekOdDrzwi"; // dostępne w tej classie i w clasach które z niej dziedziczą
+				
+			}
+			
+			class Dom2 extends Dom {
+				public function drukuj(){
+					echo "extended class drukuje: ". "</br>";;
+					echo "public: " . $this->drzwi . "</br>";
+					echo "public: " . $this->okno . "</br>";
+					echo "private: " . @$this->tv . "</br>"; // nie zadziała ponieważ $tv jest private zmienną;
+					echo "protected: " . $this->zamekOdDrzwi . "</br>";
+				}
+				
+			}
+			
+			// exit; a.k.a die; - zatrzymuje wykonywanie skryptu;
+			// die("message") - message zostenie wyświetlony przed zakończeniem wykonywania
+			
+			
+			
+			
+			
+			die("<br/>die(); - KONIEC"); // exit("wiadomość") -- działa tak samo
+			echo "<br/>To nie zostanie wydrukowane ponieważ skrypt został zakończony za pomocą die();"; 
 		?>
 		
 	</body>

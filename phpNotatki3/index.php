@@ -60,7 +60,6 @@
 		
 			
 			include 'beton.php';
-			include 'char.php';
 			
 		?>			
 		
