@@ -1,5 +1,6 @@
 #chat{
-	width: 500px;
+	width: 600px;
+	padding: 5px;
 	border: 1px solid black;
 	margin: 0 auto;
 }
@@ -12,17 +13,31 @@
 
 .input{
 	height: 30px;
-	width: 50%;
 	border: 1px solid black;
 	border-radius: 20px;
 	padding: 0 10px;
 }
 
+.inputLine{
+	text-align: center;
+}
+
+.inputLine span{
+	margin: 0 10px;
+	
+}
+
+.message{
+	margin: 0;
+}
+
 #send{
-	height: 30px;
+	height: 50px;
+	font-size: 25px;
+	padding: 5px;
 	margin: 0 5px;
 	border-radius: 20px;
-	border: 4px outset black;	
+	border: 4px outset black;
 }
 
 #send:active{
@@ -30,6 +45,11 @@
 }
 
 .nick{
+	width: 100px;
 	font-style: italic;
 	color: grey;
+}
+
+#messageInput{
+	width: 200px;	
 }
