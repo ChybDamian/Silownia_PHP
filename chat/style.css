@@ -7,8 +7,8 @@
 
 #display{
 	width: 100%;
-	height: 170px;
-	border: 1px solid black;
+	height: 200px;
+	border-bottom: 1px solid black;
 }
 
 .input{
@@ -37,11 +37,16 @@
 	padding: 5px;
 	margin: 0 5px;
 	border-radius: 20px;
-	border: 4px outset black;
+	border: 2px solid black;
+}
+
+#send:hover{
+	background-color: black;
+	color: white;
 }
 
 #send:active{
-	border: 4px inset black;
+	border: 4px solid black;
 }
 
 .nick{
