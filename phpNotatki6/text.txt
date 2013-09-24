@@ -1,0 +1,3 @@
+kot,10,miał
+pies,12,woof
+krowa,6,muuu
